@@ -1,15 +1,15 @@
 ## structure
 test/
-index.js    # Main entry point
+- index.js    # Main entry point
 routes/
-feet.js     # Student info route 
-route2.js    # Subject info route
-router3.js   # Teacher info route
-router4.js   # Room info route
-router5.js   # Schedule info
+- feet.js     # Student info route 
+- route2.js    # Subject info route
+- router3.js   # Teacher info route
+- router4.js   # Room info route
+- router5.js   # Schedule info
 route
-package.json
-.gitignore
+- package.json
+- .gitignore
 
 ## ITP313 Routing Activity
 Express.js application demonstrating modular routing with 5 separate route files, created for Routing activity
