@@ -3,6 +3,11 @@ import { Sequelize } from "sequelize";
 import { sequelize } from "./models/db.js";
 import { User } from "./models/userModel.js";
 import inquirer from "inquirer";
+import "./models/Studentmodel.js";
+import "./models/Club.js";
+import "./models/School.js";
+import "./models/Teacher.js";
+import "./models/Course.js";
 
 const rootSequelize = new Sequelize("mysql://root:@localhost:3306/");
 

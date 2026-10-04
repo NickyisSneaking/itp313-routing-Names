@@ -1,5 +1,4 @@
-
-  /*
+/*
     MIT License
     
     Copyright (c) 2025 Christian I. Cabrera || XianFire Framework
@@ -23,18 +22,43 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-    
-import express from "express";
-import { homePage } from "../controllers/homeController.js";
-import { studcontroller } from "../controllers/studcontroller.js";
-import { index } from '../controllers/dashboardController.js';
-const router = express.Router();
-router.get("/", homePage);
-router.get("/students/:id", studcontroller.show);
-router.get("/students", studcontroller.index);
-router.get("/admin", index);
-router .get("/test", (req, res) =>{
-res.send("HELLO NEIGHBOR");
-})
-console.log("Welcome back Sensei");  //act1
-export default router;
+import { Studentmodel, sequelize } from "../models/Studentmodel.js";
+await sequelize.sync();
+const studentcontroller ={
+  index: async (req, res) => {
+    res.send("Index Page");
+  },
+};
+
+export const getAll = async (req, res) => {
+  res.json(await Studentmodel.findAll());
+};
+
+export const getOne = async (req, res) => {
+  const s = await Studentmodel.findByPk(req.params.id);
+  if (!s) return res.status(404).json({ error: "Not found" });
+  res.json(s);
+};
+
+export const create = async (req, res) => {
+  try {
+    res.status(201).json(await Studentmodel.create(req.body));
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const update = async (req, res) => {
+  const s = await Studentmodel.findByPk(req.params.id);
+  if (!s) return res.status(404).json({ error: "Not found" });
+  res.json(await s.update(req.body));
+};
+
+export const remove = async (req, res) => {
+  const s = await Studentmodel.findByPk(req.params.id);
+  if (!s) return res.status(404).json({ error: "Not found" });
+  await s.destroy();
+  res.status(204).end();
+};
+
+export { studentcontroller };

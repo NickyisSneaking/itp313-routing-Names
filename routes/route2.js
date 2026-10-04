@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-//unit
+//unit act2
 router.get("/", (req, res) => {
     res.json({
        subject: "Web Devolpment",
@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) =>{
-    res.send('subject with id ${req.params.id}');
+    res.send(`subject with id ${req.params.id}`);
 });
 
 export default router;

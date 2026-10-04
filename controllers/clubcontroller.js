@@ -1,5 +1,4 @@
-
-  /*
+/*
     MIT License
     
     Copyright (c) 2025 Christian I. Cabrera || XianFire Framework
@@ -23,18 +22,30 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-    
-import express from "express";
-import { homePage } from "../controllers/homeController.js";
-import { studcontroller } from "../controllers/studcontroller.js";
-import { index } from '../controllers/dashboardController.js';
-const router = express.Router();
-router.get("/", homePage);
-router.get("/students/:id", studcontroller.show);
-router.get("/students", studcontroller.index);
-router.get("/admin", index);
-router .get("/test", (req, res) =>{
-res.send("HELLO NEIGHBOR");
-})
-console.log("Welcome back Sensei");  //act1
-export default router;
+import { Club, selectClubById, sequelize } from "../models/Club.js";
+import { insertClub, selectAllClubs } from "../models/Club.js" //reference to club at models
+await sequelize.sync();
+const clubcontroller ={
+  index: async (req, res) => {
+    res.send("Index Page");
+  },
+};
+export const addClub = async (req, res) => {
+  try {
+    res.status(201).json(await insertClub(req.body));
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+};
+
+export const getClubs = async (req, res) => {
+  res.json(await selectAllClubs());
+};
+
+export const getClub = async (req, res) => {
+  const c = await selectClubById(req.params.id);
+  if (!c) return res.status(404).json({ error: "Not found"});
+  res.json(c); 
+};
+
+export { clubcontroller };

@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) =>{
-    res.send('Schedule with id ${req.params.id}');
+    res.send(`Schedule with id ${req.params.id}`);
 });
 
 export default router;

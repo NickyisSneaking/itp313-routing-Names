@@ -1,5 +1,4 @@
-
-  /*
+/*
     MIT License
     
     Copyright (c) 2025 Christian I. Cabrera || XianFire Framework
@@ -23,18 +22,23 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-    
-import express from "express";
-import { homePage } from "../controllers/homeController.js";
-import { studcontroller } from "../controllers/studcontroller.js";
-import { index } from '../controllers/dashboardController.js';
-const router = express.Router();
-router.get("/", homePage);
-router.get("/students/:id", studcontroller.show);
-router.get("/students", studcontroller.index);
-router.get("/admin", index);
-router .get("/test", (req, res) =>{
-res.send("HELLO NEIGHBOR");
-})
-console.log("Welcome back Sensei");  //act1
-export default router;
+  // Firebase doesn't require predefined models.
+  // Use Firestore directly in controllers or create helper functions here.
+  // Collection name: "teacher"
+
+  import { DataTypes } from "sequelize";
+import { sequelize } from "./db.js";
+
+
+export const Teacher = sequelize.define("teacher", {
+  name:    { type: DataTypes.STRING,  allowNull: false },
+  subject: { type: DataTypes.STRING,  allowNull: false },
+  age:     { type: DataTypes.INTEGER, allowNull: false },
+  email:   { type: DataTypes.STRING,  allowNull: false },
+  office:  { type: DataTypes.STRING,  allowNull: false },
+});
+
+export const insertTeacher = (data) => Teacher.create(data);
+export const selectAllTeachers = () => Teacher.findAll();
+export const selectTeacherById = (id) => Teacher.findByPk(id);
+export { sequelize };

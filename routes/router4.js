@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) =>{
-    res.send('Room with id ${req.params.id}');
+    res.send(`Room with id ${req.params.id}`);
 });
 
 export default router;

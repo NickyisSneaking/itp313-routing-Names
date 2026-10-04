@@ -1,0 +1,54 @@
+<script>
+new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{
+    labels:['Large','Small','3+ Beds','0–2 Beds'],
+    datasets:[
+      {label:'By Size',data:[5689,4785,null,null],backgroundColor:'rgba(37,99,235,.72)',borderRadius:4,order:1},
+      {label:'By Beds',data:[null,null,4646,5474],backgroundColor:'rgba(124,58,237,.72)',borderRadius:4,order:1},
+      {label:'Index',type:'line',data:[98,94,90,95],borderColor:'#f59e0b',borderWidth:2,
+       pointBackgroundColor:'#f59e0b',pointRadius:4,tension:.4,yAxisID:'y2',order:0,spanGaps:true}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>v?'€'+Math.round(v/1000)+'K':''},grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{display:false,position:'right',min:80,max:104},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+
+new Chart(document.getElementById('lineChart'),{
+  type:'line',
+  data:{
+    labels:['Low (0–2)','Mid (3–6)','High (7+)'],
+    datasets:[{label:'Avg €/m²',data:[5100,4900,6400],borderColor:'#2563eb',borderWidth:2,
+      pointBackgroundColor:'#2563eb',pointRadius:5,fill:true,backgroundColor:'rgba(37,99,235,.07)',tension:.5}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>'€'+Math.round(v/1000)+'K'},grid:{color:'rgba(0,0,0,.04)'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+
+new Chart(document.getElementById('comboChart'),{
+  data:{
+    labels:['Best','Avg Mkt','City C','City D','City E'],
+    datasets:[
+      {type:'bar',label:'Rent €/mo',data:[3794,3200,2900,2600,2400],backgroundColor:'rgba(37,99,235,.2)',borderRadius:4,yAxisID:'y'},
+      {type:'line',label:'Yield %',data:[5.2,4.4,4.1,3.9,3.6],borderColor:'#059669',borderWidth:2,
+       pointBackgroundColor:'#059669',pointRadius:4,tension:.4,yAxisID:'y2'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>'€'+v},grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{display:true,position:'right',min:3,max:6,ticks:{font:{size:8},callback:v=>v.toFixed(1)+'%'},grid:{display:false}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+</script>

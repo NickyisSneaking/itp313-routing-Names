@@ -14,7 +14,7 @@ god.get("/", (req, res) => {
 
 god.get("/students/:id", (req, res) =>{
     const stud = req.params.id;
-    res.send('she is ${stud} years old');
+    res.send(`she is ${stud} years old`);
 
 });
 

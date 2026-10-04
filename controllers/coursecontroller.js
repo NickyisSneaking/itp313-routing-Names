@@ -1,5 +1,4 @@
-
-  /*
+/*
     MIT License
     
     Copyright (c) 2025 Christian I. Cabrera || XianFire Framework
@@ -23,18 +22,24 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-    
-import express from "express";
-import { homePage } from "../controllers/homeController.js";
-import { studcontroller } from "../controllers/studcontroller.js";
-import { index } from '../controllers/dashboardController.js';
-const router = express.Router();
-router.get("/", homePage);
-router.get("/students/:id", studcontroller.show);
-router.get("/students", studcontroller.index);
-router.get("/admin", index);
-router .get("/test", (req, res) =>{
-res.send("HELLO NEIGHBOR");
-})
-console.log("Welcome back Sensei");  //act1
-export default router;
+import { Course, insertCourse, selectAllCourses, selectCourseById, sequelize } from "../models/Course.js";
+await sequelize.sync();
+const coursecontroller ={
+  index: async (req, res) => {
+    res.send("Index Page");
+  },
+};
+
+export const addCourse = async (req, res) => {
+  try { res.status(201).json(await insertCourse(req.body)); }
+  catch (e) { res.status(400).json({ error: e.message }); }
+};
+export const getCourses = async (req, res) => res.json(await selectAllCourses());
+export const getCourse = async (req, res) => {
+  const c = await selectCourseById(req.params.id);
+  if (!c) return res.status(404).json({ error: "Not found" });
+  res.json(c);
+};
+
+
+export { coursecontroller };

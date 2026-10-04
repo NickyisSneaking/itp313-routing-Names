@@ -37,6 +37,13 @@ import route2 from "./routes/route2.js";
 import router3 from "./routes/router3.js";
 import router4 from "./routes/router4.js";
 import router5 from "./routes/router5.js";
+import { sequelize } from "./models/db.js";
+import "./models/Studentmodel.js";
+import studentRoutes from "./routes/students.js";
+import clubRoutes from "./routes/clubs.js";
+import schoolRoutes from "./routes/schools.js";
+import teacherRoutes from "./routes/teachers.js";
+import courseRoutes from "./routes/courses.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -106,14 +113,26 @@ fs.readdir(partialsDir, (err, files) => {
     });
 });
 
+app.use(express.json());
+app.use("/students", studentRoutes);
 app.use("/", router);
 app.use("/KimJustin/feet", god);
 app.use("/KimJustin/subjects", route2);
 app.use("/KimJustin/teachers", router3);
 app.use("/KimJustin/rooms", router4);
 app.use("/KimJustin/schedule", router5);
+app.use("/clubs", clubRoutes);
+app.use("/schools", schoolRoutes);
+app.use("/teachers", teacherRoutes);
+app.use("/courses", courseRoutes);
 
 app.listen(300, () => console.log("Server running on port 3000"));
+
+sequelize
+  .authenticate()
+  .then(() => sequelize.sync())
+  .then(() => sequelize.sync({force: true}))
+  .catch((err) => console.error(" DB error:", err))
 
 export default app;
 

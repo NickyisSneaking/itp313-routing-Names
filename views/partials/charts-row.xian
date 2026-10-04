@@ -1,0 +1,56 @@
+    <div class="r1">
+
+      <!-- Bar chart -->
+      <div class="card">
+        <div class="ch"><span class="ct">Price / m² by Property Scale</span><button class="chip chip-bl">Size &amp; Beds</button></div>
+        <div class="cs">Bar = avg €/m² · Line = relative index</div>
+        <div class="cw2" style="height:155px"><canvas id="barChart" role="img" aria-label="Price per sqm by property scale"></canvas></div>
+        <div class="leg">
+          <div class="li"><div class="ld" style="background:#2563eb"></div>By Size</div>
+          <div class="li"><div class="ld" style="background:#7c3aed"></div>By Bedrooms</div>
+          <div class="li"><div class="ld" style="background:#f59e0b"></div>Index line</div>
+        </div>
+      </div>
+
+      <!-- Amenity -->
+      <div class="card">
+        <div class="ch"><span class="ct">Amenity Price Premium</span><button class="chip chip-gr">Feature Impact</button></div>
+        <div class="cs">Avg sale price delta vs no-amenity</div>
+        <div class="am"><div class="aml">Parking</div><div class="ambar pos" style="width:90%"><span class="amtxt">+€320K</span></div></div>
+        <div class="am"><div class="aml">Elevator</div><div class="ambar pos" style="width:80%"><span class="amtxt">+€280K</span></div></div>
+        <div class="am"><div class="aml">Gym</div><div class="ambar pos" style="width:46%"><span class="amtxt">+€150K</span></div></div>
+        <div class="am"><div class="aml">Pool</div><div class="ambar neg" style="width:32%"><span class="amtxt">−€95K</span></div></div>
+        <div class="leg">
+          <div class="li"><div class="ld" style="background:#059669"></div>Positive</div>
+          <div class="li"><div class="ld" style="background:#dc2626"></div>Negative</div>
+        </div>
+      </div>
+
+      <!-- Floor line -->
+      <div class="card">
+        <div class="ch"><span class="ct">Floor Elevation vs Price/m²</span><button class="chip chip-am">Floor Premium</button></div>
+        <div class="cs">Elevator-equipped buildings only</div>
+        <div class="cw2" style="height:140px"><canvas id="lineChart" role="img" aria-label="Floor elevation vs price per sqm"></canvas></div>
+        <div class="leg"><div class="li"><div class="ld" style="background:#2563eb"></div>Avg €/m²</div></div>
+      </div>
+
+      <!-- Energy donut — spans 2 cols -->
+      <div class="card" style="grid-column:span 2">
+        <div class="ch"><span class="ct">Energy Rating Impact</span><button class="chip chip-gy">A–G Ratings</button></div>
+        <div class="cs">Avg sale by efficiency band</div>
+        <div class="dw">
+          <div class="dsp">
+            <svg width="80" height="80" viewBox="0 0 80 80" style="transform:rotate(-90deg)">
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#e5e7eb" stroke-width="11"/>
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#059669" stroke-width="11" stroke-dasharray="98 78" stroke-linecap="round"/>
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#dc2626" stroke-width="11" stroke-dasharray="78 98" stroke-dashoffset="-98" stroke-linecap="round"/>
+            </svg>
+            <div class="dc"><div class="dm">+€38.5K</div><div class="dl">premium</div></div>
+          </div>
+          <div class="rg2">
+            <div class="rc"><div class="rv rg">€1080.2K</div><div class="rl">A–C Rated</div></div>
+            <div class="rc"><div class="rv rr">€1041.7K</div><div class="rl">D–G Rated</div></div>
+          </div>
+        </div>
+      </div>
+    </div>

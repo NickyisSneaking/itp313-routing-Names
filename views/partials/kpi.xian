@@ -1,0 +1,32 @@
+    <div class="kr">
+      <div class="kc b">
+        <div class="kl">Avg Sale Price <span>🏠</span></div>
+        <div class="kv vb">€1,052.2K</div>
+        <div class="ks">All sale listings</div>
+        <div class="kb bg">▲ France</div>
+      </div>
+      <div class="kc t">
+        <div class="kl">Avg Monthly Rent <span>💳</span></div>
+        <div class="kv vb">€3,660</div>
+        <div class="ks">Rental listings avg</div>
+        <div class="kb bb">4.2% yield</div>
+      </div>
+      <div class="kc b">
+        <div class="kl">Price per m² <span>📐</span></div>
+        <div class="kv vb">€5,187</div>
+        <div class="ks">Sale listings — Paris</div>
+        <div class="kb bb">Paris leader</div>
+      </div>
+      <div class="kc g">
+        <div class="kl">Best Yield <span>✏️</span></div>
+        <div class="kv vg">5.2%</div>
+        <div class="ks">Vienna</div>
+        <div class="kb bg">▲ Rental alpha</div>
+      </div>
+      <div class="kc a">
+        <div class="kl">Top Market Avg <span>⭐</span></div>
+        <div class="kv va">€1,708.1K</div>
+        <div class="ks">France · Paris</div>
+        <div class="kb ba">€8,637/m²</div>
+      </div>
+    </div>

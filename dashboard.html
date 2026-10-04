@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Net_test DB — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sidebar:188px;
+  --bg:#f2f0eb;
+  --surface:#fff;
+  --sb:#16213e;
+  --t1:#0d0d1a;--t2:#5a5a72;--t3:#9898b0;
+  --bdr:rgba(0,0,0,.07);--bdr2:rgba(0,0,0,.13);
+  --blue:#2563eb;--green:#059669;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;--teal:#0891b2;
+  --bg-blue:#eff6ff;--bg-green:#ecfdf5;--bg-amber:#fffbeb;--bg-red:#fef2f2;--bg-purple:#f5f3ff;
+  --r:8px;--rs:5px;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-size:12px;display:flex;height:100vh}
+
+/* SIDEBAR */
+.sb{width:var(--sidebar);min-width:var(--sidebar);background:var(--sb);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding-bottom:14px}
+.sb::-webkit-scrollbar{width:3px}.sb::-webkit-scrollbar-thumb{background:#2a2a5a;border-radius:3px}
+.logo{display:flex;align-items:center;gap:9px;padding:14px 12px 12px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:10px}
+.logo-ic{width:31px;height:31px;border-radius:7px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
+.logo-t{font-size:11px;font-weight:600;color:#e8e8f4;line-height:1.3}
+.logo-s{font-size:8px;color:#6666aa;letter-spacing:.09em;text-transform:uppercase}
+.ss{padding:0 10px;margin-bottom:11px}
+.ss-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5555aa;padding:0 3px;margin-bottom:5px}
+.sc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--rs);padding:6px 9px;margin-bottom:4px;cursor:pointer;transition:background .15s}
+.sc:hover{background:rgba(255,255,255,.07)}
+.sb-badge{display:flex;align-items:center;gap:3px;font-size:8px;font-weight:700;margin-bottom:2px}
+.sb-desc{font-size:8px;color:#6666aa}.sb-city{font-size:9.5px;font-weight:700;margin-top:3px}
+.cg{color:#34d399}.cr{color:#f87171}.ca{color:#fbbf24}.cb{color:#60a5fa}.cp{color:#a78bfa}
+.strc{display:flex;align-items:flex-start;gap:7px;padding:6px 9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--rs);margin-bottom:4px;cursor:pointer;transition:background .15s}
+.strc:hover{background:rgba(255,255,255,.07)}
+.sdot{width:8px;height:8px;border-radius:2px;margin-top:2px;flex-shrink:0}
+.st{font-size:10px;font-weight:500;color:#d0d0f0;line-height:1.3}
+.sd{font-size:8px;color:#5555aa;margin-top:1px}.sc2{font-size:9px;font-weight:700;margin-top:2px}
+.ebox{margin:6px 10px 0;background:linear-gradient(135deg,rgba(5,150,105,.18),rgba(5,150,105,.06));border:1px solid rgba(52,211,153,.22);border-radius:var(--r);padding:9px 11px}
+.elbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#4488aa}
+.eval{font-size:18px;font-weight:700;color:#34d399;margin:2px 0 1px;font-family:'DM Mono',monospace}
+.esub{font-size:8px;color:#5566aa}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+
+/* TOPBAR */
+.topbar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-bottom:1px solid var(--bdr);flex-shrink:0}
+.ts{padding:10px 15px;border-right:1px solid var(--bdr)}.ts:last-child{border-right:none}
+.tsv{font-size:17px;font-weight:700;color:var(--t1);font-family:'DM Mono',monospace;line-height:1}
+.tsl{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-top:3px}
+
+/* SCROLL */
+.scr{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px}
+.scr::-webkit-scrollbar{width:4px}.scr::-webkit-scrollbar-thumb{background:#d0ccc6;border-radius:4px}
+
+/* KPI */
+.kr{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:8px}
+.kc{background:var(--surface);border-radius:var(--r);border:1px solid var(--bdr);padding:9px 11px;position:relative;overflow:hidden}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kc.b::before{background:var(--blue)}.kc.g::before{background:var(--green)}.kc.a::before{background:var(--amber)}.kc.t::before{background:var(--teal)}.kc.p::before{background:var(--purple)}
+.kl{display:flex;justify-content:space-between;align-items:center;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:5px}
+.kv{font-size:17px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;margin-bottom:3px}
+.kv.vb{color:var(--blue)}.kv.vg{color:var(--green)}.kv.va{color:var(--amber)}
+.ks{font-size:8px;color:var(--t3)}
+.kb{display:inline-flex;align-items:center;gap:2px;font-size:8px;font-weight:700;margin-top:4px;padding:2px 6px;border-radius:4px}
+.kb.bg{background:var(--bg-green);color:var(--green)}.kb.bb{background:var(--bg-blue);color:var(--blue)}.kb.ba{background:var(--bg-amber);color:var(--amber)}
+
+/* CARD */
+.card{background:var(--surface);border-radius:var(--r);border:1px solid var(--bdr);padding:10px 12px}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1px}
+.ct{font-size:10px;font-weight:600;color:var(--t1);line-height:1.3}
+.cs{font-size:8px;color:var(--t3);margin-bottom:8px}
+.chip{font-size:8px;font-weight:700;padding:2px 7px;border-radius:20px;border:none;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-left:6px}
+.chip-bl{background:var(--bg-blue);color:var(--blue)}.chip-gr{background:var(--bg-green);color:var(--green)}
+.chip-am{background:var(--bg-amber);color:var(--amber)}.chip-gy{background:#f0ede8;color:var(--t2)}
+
+/* ROW 1 */
+.r1{display:grid;grid-template-columns:1.35fr 0.9fr 0.9fr 1fr 1fr;gap:7px;margin-bottom:8px}
+
+/* Amenity */
+.am{margin-bottom:5px}
+.aml{font-size:8px;color:var(--t3);margin-bottom:2px}
+.ambar{height:18px;border-radius:4px;display:flex;align-items:center;padding:0 7px}
+.ambar.pos{background:linear-gradient(90deg,#059669,#34d399)}.ambar.neg{background:linear-gradient(90deg,#dc2626,#f87171)}
+.amtxt{font-size:8px;font-weight:700;color:#fff}
+.leg{display:flex;gap:9px;margin-top:6px;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px;font-size:8px;color:var(--t2)}
+.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* Donut */
+.dw{display:flex;align-items:center;gap:11px;margin-top:4px}
+.dsp{position:relative;width:80px;height:80px;flex-shrink:0}
+.dc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.dm{font-size:11px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace}
+.dl{font-size:7px;color:var(--t3)}
+.rg2{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1}
+.rc{background:#f8f6f2;border-radius:var(--rs);padding:7px 8px;text-align:center}
+.rv{font-size:12px;font-weight:700;font-family:'DM Mono',monospace}
+.rv.rg{color:var(--green)}.rv.rr{color:var(--red)}
+.rl{font-size:7.5px;color:var(--t3);margin-top:2px}
+
+/* ROW 2 */
+.r2{display:grid;grid-template-columns:2.1fr 1fr 1fr;gap:7px}
+
+/* Table */
+table.sig{width:100%;border-collapse:collapse}
+table.sig thead th{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding:4px 5px;text-align:left;border-bottom:1px solid var(--bdr2)}
+table.sig tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s}
+table.sig tbody tr:hover{background:#faf9f7}
+table.sig tbody td{padding:5px 5px;font-size:9px;color:var(--t1);vertical-align:middle}
+.tn{font-size:8px;color:var(--t3);font-family:'DM Mono',monospace}
+.tag{display:inline-flex;align-items:center;font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap}
+.tbl{background:var(--bg-blue);color:var(--blue)}.tam{background:var(--bg-amber);color:var(--amber)}
+.tgr{background:var(--bg-green);color:var(--green)}.tpu{background:var(--bg-purple);color:var(--purple)}.trd{background:var(--bg-red);color:var(--red)}
+.lm{font-size:9px;font-weight:600;color:var(--t1)}.ls{font-size:7.5px;color:var(--t3);margin-top:1px}
+.pv{font-weight:700;font-family:'DM Mono',monospace;font-size:9px}
+.cw{min-width:54px}.cbar{height:4px;border-radius:2px;background:#e8e4de;overflow:hidden}
+.cf{height:100%;border-radius:2px}.cf.cg{background:var(--green)}.cf.ca{background:var(--amber)}
+.cp2{font-size:7.5px;color:var(--t3);margin-top:1px;font-family:'DM Mono',monospace}
+
+/* Metrics */
+.mr{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.ml{font-size:8.5px;color:var(--t2);width:72px;flex-shrink:0}
+.mb{flex:1;height:5px;background:#ede9e3;border-radius:3px;overflow:hidden}
+.mf{height:100%;border-radius:3px}
+.mv{font-size:9px;font-weight:700;font-family:'DM Mono',monospace;width:40px;text-align:right;color:var(--t1)}
+.vb2{margin-top:10px;padding-top:8px;border-top:1px solid var(--bdr)}
+.vl{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--t3);margin-bottom:5px}
+.vr{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.vn{font-size:8px;color:var(--t3);width:42px}
+.vbar{flex:1;height:4px;border-radius:2px}
+.vv{font-size:8.5px;font-weight:700;font-family:'DM Mono',monospace;width:34px;text-align:right}
+.cp3{display:flex;justify-content:space-between;margin-top:6px}
+.cl{font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
+.cn{font-size:12px;font-weight:700}
+
+/* Best yield */
+.bybox{margin-top:8px;background:linear-gradient(135deg,var(--bg-green),rgba(5,150,105,.04));border:1px solid rgba(5,150,105,.18);border-radius:var(--rs);padding:7px 10px;display:flex;justify-content:space-between;align-items:center}
+.byl{font-size:7px;text-transform:uppercase;letter-spacing:.09em;color:var(--t3)}
+.byc{font-size:13px;font-weight:700;color:var(--green)}
+.bys{font-size:7.5px;color:var(--t3)}
+.byy{font-size:16px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace}
+
+.cw2{position:relative;width:100%}
+
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.kc{animation:fu .35s ease both}
+.kc:nth-child(1){animation-delay:.04s}.kc:nth-child(2){animation-delay:.08s}
+.kc:nth-child(3){animation-delay:.12s}.kc:nth-child(4){animation-delay:.16s}.kc:nth-child(5){animation-delay:.20s}
+.card{animation:fu .4s ease both}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="logo">
+    <div class="logo-ic">NT</div>
+    <div><div class="logo-t">Net_test DB</div><div class="logo-s">Dashboard</div></div>
+  </div>
+
+  <div class="ss">
+    <div class="ss-lbl">Investor Signals</div>
+    <div class="sc">
+      <div class="sb-badge cg">▲ Top Investor Pick</div>
+      <div class="sb-desc">High yield · Fast DOM</div>
+      <div class="sb-city cg">Vienna &nbsp;5.2%</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge cb">● Peak Rental Return</div>
+      <div class="sb-desc">Highest annualised yield city</div>
+      <div class="sb-city cb">Vienna &nbsp;3.2%</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge ca">◆ Scarcity Opportunity</div>
+      <div class="sb-desc">High value · Low supply</div>
+      <div class="sb-city ca">Brussels &nbsp;305 listings</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge cr">○ Sluggish Market</div>
+      <div class="sb-desc">Buyer leverage zone</div>
+      <div class="sb-city cr">Amsterdam &nbsp;183d DOM</div>
+    </div>
+  </div>
+
+  <div class="ss">
+    <div class="ss-lbl">Structural Premiums</div>
+    <div class="strc">
+      <div class="sdot" style="background:#7c3aed"></div>
+      <div><div class="st">Top Property Type</div><div class="sd">€1885.6K avg sale price</div><div class="sc2 cp">Office</div></div>
+    </div>
+    <div class="strc">
+      <div class="sdot" style="background:#2563eb"></div>
+      <div><div class="st">Multi-Bath Premium</div><div class="sd">vs 1-bath properties</div><div class="sc2 cr">€-664.2K</div></div>
+    </div>
+  </div>
+
+  <div class="ebox">
+    <div class="elbl">Energy Efficiency Premium</div>
+    <div class="eval">+€38.5K</div>
+    <div class="esub">A–C rated vs D–G rated</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="ts"><div class="tsv">5,000</div><div class="tsl">Total Orders</div></div>
+    <div class="ts"><div class="tsv">France</div><div class="tsl">Value Leader</div></div>
+    <div class="ts"><div class="tsv">5.2%</div><div class="tsl">Peak Yield</div></div>
+    <div class="ts"><div class="tsv">4.2%</div><div class="tsl">Blended Yield</div></div>
+  </div>
+
+  <div class="scr">
+
+    <!-- KPI -->
+    <div class="kr">
+      <div class="kc b">
+        <div class="kl">Avg Sale Price <span>🏠</span></div>
+        <div class="kv vb">€1,052.2K</div>
+        <div class="ks">All sale listings</div>
+        <div class="kb bg">▲ France</div>
+      </div>
+      <div class="kc t">
+        <div class="kl">Avg Monthly Rent <span>💳</span></div>
+        <div class="kv vb">€3,660</div>
+        <div class="ks">Rental listings avg</div>
+        <div class="kb bb">4.2% yield</div>
+      </div>
+      <div class="kc b">
+        <div class="kl">Price per m² <span>📐</span></div>
+        <div class="kv vb">€5,187</div>
+        <div class="ks">Sale listings — Paris</div>
+        <div class="kb bb">Paris leader</div>
+      </div>
+      <div class="kc g">
+        <div class="kl">Best Yield <span>✏️</span></div>
+        <div class="kv vg">5.2%</div>
+        <div class="ks">Vienna</div>
+        <div class="kb bg">▲ Rental alpha</div>
+      </div>
+      <div class="kc a">
+        <div class="kl">Top Market Avg <span>⭐</span></div>
+        <div class="kv va">€1,708.1K</div>
+        <div class="ks">France · Paris</div>
+        <div class="kb ba">€8,637/m²</div>
+      </div>
+    </div>
+
+    <!-- ROW 1: charts -->
+    <div class="r1">
+
+      <!-- Bar chart -->
+      <div class="card">
+        <div class="ch"><span class="ct">Price / m² by Property Scale</span><button class="chip chip-bl">Size &amp; Beds</button></div>
+        <div class="cs">Bar = avg €/m² · Line = relative index</div>
+        <div class="cw2" style="height:155px"><canvas id="barChart" role="img" aria-label="Price per sqm by property scale"></canvas></div>
+        <div class="leg">
+          <div class="li"><div class="ld" style="background:#2563eb"></div>By Size</div>
+          <div class="li"><div class="ld" style="background:#7c3aed"></div>By Bedrooms</div>
+          <div class="li"><div class="ld" style="background:#f59e0b"></div>Index line</div>
+        </div>
+      </div>
+
+      <!-- Amenity -->
+      <div class="card">
+        <div class="ch"><span class="ct">Amenity Price Premium</span><button class="chip chip-gr">Feature Impact</button></div>
+        <div class="cs">Avg sale price delta vs no-amenity</div>
+        <div class="am"><div class="aml">Parking</div><div class="ambar pos" style="width:90%"><span class="amtxt">+€320K</span></div></div>
+        <div class="am"><div class="aml">Elevator</div><div class="ambar pos" style="width:80%"><span class="amtxt">+€280K</span></div></div>
+        <div class="am"><div class="aml">Gym</div><div class="ambar pos" style="width:46%"><span class="amtxt">+€150K</span></div></div>
+        <div class="am"><div class="aml">Pool</div><div class="ambar neg" style="width:32%"><span class="amtxt">−€95K</span></div></div>
+        <div class="leg">
+          <div class="li"><div class="ld" style="background:#059669"></div>Positive</div>
+          <div class="li"><div class="ld" style="background:#dc2626"></div>Negative</div>
+        </div>
+      </div>
+
+      <!-- Floor line -->
+      <div class="card">
+        <div class="ch"><span class="ct">Floor Elevation vs Price/m²</span><button class="chip chip-am">Floor Premium</button></div>
+        <div class="cs">Elevator-equipped buildings only</div>
+        <div class="cw2" style="height:140px"><canvas id="lineChart" role="img" aria-label="Floor elevation vs price per sqm"></canvas></div>
+        <div class="leg"><div class="li"><div class="ld" style="background:#2563eb"></div>Avg €/m²</div></div>
+      </div>
+
+      <!-- Energy donut — spans 2 cols -->
+      <div class="card" style="grid-column:span 2">
+        <div class="ch"><span class="ct">Energy Rating Impact</span><button class="chip chip-gy">A–G Ratings</button></div>
+        <div class="cs">Avg sale by efficiency band</div>
+        <div class="dw">
+          <div class="dsp">
+            <svg width="80" height="80" viewBox="0 0 80 80" style="transform:rotate(-90deg)">
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#e5e7eb" stroke-width="11"/>
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#059669" stroke-width="11" stroke-dasharray="98 78" stroke-linecap="round"/>
+              <circle cx="40" cy="40" r="28" fill="none" stroke="#dc2626" stroke-width="11" stroke-dasharray="78 98" stroke-dashoffset="-98" stroke-linecap="round"/>
+            </svg>
+            <div class="dc"><div class="dm">+€38.5K</div><div class="dl">premium</div></div>
+          </div>
+          <div class="rg2">
+            <div class="rc"><div class="rv rg">€1080.2K</div><div class="rl">A–C Rated</div></div>
+            <div class="rc"><div class="rv rr">€1041.7K</div><div class="rl">D–G Rated</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="r2">
+
+      <!-- Signals table -->
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px">
+          <span class="ct">Market Opportunities &amp; Strategic Readout</span>
+          <button class="chip chip-gy">5 signals</button>
+        </div>
+        <div class="cs">Q1–Q10 investor-grade signals · Sorted by priority</div>
+        <div style="overflow-x:auto">
+          <table class="sig">
+            <thead>
+              <tr><th>#</th><th>Signal</th><th>Location</th><th>Primary Metric</th><th>Secondary</th><th>Action Tag</th><th>Confidence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tn">01</td>
+                <td><span class="tag tbl">Avg Value Leader</span></td>
+                <td><div class="lm">France</div><div class="ls">Paris · highest avg price</div></td>
+                <td><span class="pv" style="color:#d97706">€1,788.1K</span></td>
+                <td style="font-size:8px;color:var(--t3)">€8,637/m²</td>
+                <td><span class="tag tpu">◆ Premium Market</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:92%"></div></div><div class="cp2">92%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">02</td>
+                <td><span class="tag tam">Sluggish City</span></td>
+                <td><div class="lm">Amsterdam</div><div class="ls">Retails move slowest</div></td>
+                <td><span class="pv" style="color:#dc2626">183.4 days</span></td>
+                <td style="font-size:8px;color:var(--t3)">Slow DOM</td>
+                <td><span class="tag trd">▼ Buyer Leverage</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf ca" style="width:78%"></div></div><div class="cp2">78%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">03</td>
+                <td><span class="tag tpu">Scarcity Play</span></td>
+                <td><div class="lm">Brussels</div><div class="ls">High value · low supply</div></td>
+                <td><span class="pv" style="color:#7c3aed">€956.9K</span></td>
+                <td style="font-size:8px;color:var(--t3)">305 listings</td>
+                <td><span class="tag tgr">▲ Scarcity Signal</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:85%"></div></div><div class="cp2">85%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">04</td>
+                <td><span class="tag tgr">Investor Pick</span></td>
+                <td><div class="lm">Vienna</div><div class="ls">Fast market · high yield</div></td>
+                <td><span class="pv" style="color:#059669">5.28% yield</span></td>
+                <td style="font-size:8px;color:var(--t3)">DOM 170.1d</td>
+                <td><span class="tag tgr">▲ Buy Signal</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:96%"></div></div><div class="cp2">96%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">05</td>
+                <td><span class="tag tbl">Peak Rental</span></td>
+                <td><div class="lm">Vienna</div><div class="ls">Highest annualised return</div></td>
+                <td><span class="pv" style="color:#059669">5.2% yield</span></td>
+                <td style="font-size:8px;color:var(--t3)">Rent €3,794/mo</td>
+                <td><span class="tag tgr">★ Rental Alpha</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:100%"></div></div><div class="cp2">100%</div></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Size & Bedroom Split -->
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px"><span class="ct">Price/m² — Size &amp; Bedroom Split</span></div>
+        <div class="cs">Relative valuation density by profile</div>
+        <div class="mr"><div class="ml">Large homes</div><div class="mb"><div class="mf" style="width:95%;background:#2563eb"></div></div><div class="mv">€5,689</div></div>
+        <div class="mr"><div class="ml">Small homes</div><div class="mb"><div class="mf" style="width:80%;background:#7c3aed"></div></div><div class="mv">€4,785</div></div>
+        <div class="mr"><div class="ml">3+ bedrooms</div><div class="mb"><div class="mf" style="width:77%;background:#7c3aed"></div></div><div class="mv">€4,646</div></div>
+        <div class="mr"><div class="ml">0–2 bedrooms</div><div class="mb"><div class="mf" style="width:91%;background:#2563eb"></div></div><div class="mv">€5,474</div></div>
+        <div class="vb2">
+          <div class="vl">Market Velocity</div>
+          <div class="vr"><div class="vn">Fastest</div><div class="vbar" style="background:linear-gradient(90deg,#059669,#34d399)"></div><div class="vv" style="color:#059669">170.1d</div></div>
+          <div class="vr"><div class="vn">Slowest</div><div class="vbar" style="background:linear-gradient(90deg,#dc2626,#f87171)"></div><div class="vv" style="color:#dc2626">183.4d</div></div>
+          <div class="cp3">
+            <div><div class="cl">Fastest City</div><div class="cn" style="color:#059669">Vienna</div></div>
+            <div style="text-align:right"><div class="cl">Slowest City</div><div class="cn" style="color:#dc2626">Amsterdam</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rental vs Sale -->
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px"><span class="ct">Rental vs Sale Market</span></div>
+        <div class="cs">Yield, rent &amp; best city performance</div>
+        <div class="cw2" style="height:125px"><canvas id="comboChart" role="img" aria-label="Rental vs sale market combo chart"></canvas></div>
+        <div class="leg" style="margin-top:5px">
+          <div class="li"><div class="ld" style="background:rgba(37,99,235,.4)"></div>Rent €/mo</div>
+          <div class="li"><div class="ld" style="background:#059669"></div>Yield %</div>
+        </div>
+        <div class="bybox">
+          <div><div class="byl">Best Yield City</div><div class="byc">Vienna</div><div class="bys">€3,794/mo rent · €875.5K sale</div></div>
+          <div class="byy">5.2%</div>
+        </div>
+      </div>
+
+    </div><!-- /r2 -->
+  </div><!-- /scr -->
+</main>
+
+<script>
+new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{
+    labels:['Large','Small','3+ Beds','0–2 Beds'],
+    datasets:[
+      {label:'By Size',data:[5689,4785,null,null],backgroundColor:'rgba(37,99,235,.72)',borderRadius:4,order:1},
+      {label:'By Beds',data:[null,null,4646,5474],backgroundColor:'rgba(124,58,237,.72)',borderRadius:4,order:1},
+      {label:'Index',type:'line',data:[98,94,90,95],borderColor:'#f59e0b',borderWidth:2,
+       pointBackgroundColor:'#f59e0b',pointRadius:4,tension:.4,yAxisID:'y2',order:0,spanGaps:true}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>v?'€'+Math.round(v/1000)+'K':''},grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{display:false,position:'right',min:80,max:104},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+
+new Chart(document.getElementById('lineChart'),{
+  type:'line',
+  data:{
+    labels:['Low (0–2)','Mid (3–6)','High (7+)'],
+    datasets:[{label:'Avg €/m²',data:[5100,4900,6400],borderColor:'#2563eb',borderWidth:2,
+      pointBackgroundColor:'#2563eb',pointRadius:5,fill:true,backgroundColor:'rgba(37,99,235,.07)',tension:.5}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>'€'+Math.round(v/1000)+'K'},grid:{color:'rgba(0,0,0,.04)'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+
+new Chart(document.getElementById('comboChart'),{
+  data:{
+    labels:['Best','Avg Mkt','City C','City D','City E'],
+    datasets:[
+      {type:'bar',label:'Rent €/mo',data:[3794,3200,2900,2600,2400],backgroundColor:'rgba(37,99,235,.2)',borderRadius:4,yAxisID:'y'},
+      {type:'line',label:'Yield %',data:[5.2,4.4,4.1,3.9,3.6],borderColor:'#059669',borderWidth:2,
+       pointBackgroundColor:'#059669',pointRadius:4,tension:.4,yAxisID:'y2'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{ticks:{font:{size:8,family:'DM Mono'},callback:v=>'€'+v},grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{display:true,position:'right',min:3,max:6,ticks:{font:{size:8},callback:v=>v.toFixed(1)+'%'},grid:{display:false}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }}
+});
+</script>
+</body>
+</html>

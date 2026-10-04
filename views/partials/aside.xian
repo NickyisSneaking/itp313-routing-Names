@@ -1,0 +1,48 @@
+<aside class="sb">
+  <div class="logo">
+    <div class="logo-ic">NT</div>
+    <div><div class="logo-t">Net_test DB</div><div class="logo-s">Dashboard</div></div>
+  </div>
+
+  <div class="ss">
+    <div class="ss-lbl">Investor Signals</div>
+    <div class="sc">
+      <div class="sb-badge cg">▲ Top Investor Pick</div>
+      <div class="sb-desc">High yield · Fast DOM</div>
+      <div class="sb-city cg">Vienna &nbsp;5.2%</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge cb">● Peak Rental Return</div>
+      <div class="sb-desc">Highest annualised yield city</div>
+      <div class="sb-city cb">Vienna &nbsp;3.2%</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge ca">◆ Scarcity Opportunity</div>
+      <div class="sb-desc">High value · Low supply</div>
+      <div class="sb-city ca">Brussels &nbsp;305 listings</div>
+    </div>
+    <div class="sc">
+      <div class="sb-badge cr">○ Sluggish Market</div>
+      <div class="sb-desc">Buyer leverage zone</div>
+      <div class="sb-city cr">Amsterdam &nbsp;183d DOM</div>
+    </div>
+  </div>
+
+  <div class="ss">
+    <div class="ss-lbl">Structural Premiums</div>
+    <div class="strc">
+      <div class="sdot" style="background:#7c3aed"></div>
+      <div><div class="st">Top Property Type</div><div class="sd">€1885.6K avg sale price</div><div class="sc2 cp">Office</div></div>
+    </div>
+    <div class="strc">
+      <div class="sdot" style="background:#2563eb"></div>
+      <div><div class="st">Multi-Bath Premium</div><div class="sd">vs 1-bath properties</div><div class="sc2 cr">€-664.2K</div></div>
+    </div>
+  </div>
+
+  <div class="ebox">
+    <div class="elbl">Energy Efficiency Premium</div>
+    <div class="eval">+€38.5K</div>
+    <div class="esub">A–C rated vs D–G rated</div>
+  </div>
+</aside>

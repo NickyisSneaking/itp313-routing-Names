@@ -1,0 +1,61 @@
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px">
+          <span class="ct">Market Opportunities &amp; Strategic Readout</span>
+          <button class="chip chip-gy">5 signals</button>
+        </div>
+        <div class="cs">Q1–Q10 investor-grade signals · Sorted by priority</div>
+        <div style="overflow-x:auto">
+          <table class="sig">
+            <thead>
+              <tr><th>#</th><th>Signal</th><th>Location</th><th>Primary Metric</th><th>Secondary</th><th>Action Tag</th><th>Confidence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tn">01</td>
+                <td><span class="tag tbl">Avg Value Leader</span></td>
+                <td><div class="lm">France</div><div class="ls">Paris · highest avg price</div></td>
+                <td><span class="pv" style="color:#d97706">€1,788.1K</span></td>
+                <td style="font-size:8px;color:var(--t3)">€8,637/m²</td>
+                <td><span class="tag tpu">◆ Premium Market</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:92%"></div></div><div class="cp2">92%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">02</td>
+                <td><span class="tag tam">Sluggish City</span></td>
+                <td><div class="lm">Amsterdam</div><div class="ls">Retails move slowest</div></td>
+                <td><span class="pv" style="color:#dc2626">183.4 days</span></td>
+                <td style="font-size:8px;color:var(--t3)">Slow DOM</td>
+                <td><span class="tag trd">▼ Buyer Leverage</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf ca" style="width:78%"></div></div><div class="cp2">78%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">03</td>
+                <td><span class="tag tpu">Scarcity Play</span></td>
+                <td><div class="lm">Brussels</div><div class="ls">High value · low supply</div></td>
+                <td><span class="pv" style="color:#7c3aed">€956.9K</span></td>
+                <td style="font-size:8px;color:var(--t3)">305 listings</td>
+                <td><span class="tag tgr">▲ Scarcity Signal</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:85%"></div></div><div class="cp2">85%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">04</td>
+                <td><span class="tag tgr">Investor Pick</span></td>
+                <td><div class="lm">Vienna</div><div class="ls">Fast market · high yield</div></td>
+                <td><span class="pv" style="color:#059669">5.28% yield</span></td>
+                <td style="font-size:8px;color:var(--t3)">DOM 170.1d</td>
+                <td><span class="tag tgr">▲ Buy Signal</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:96%"></div></div><div class="cp2">96%</div></div></td>
+              </tr>
+              <tr>
+                <td class="tn">05</td>
+                <td><span class="tag tbl">Peak Rental</span></td>
+                <td><div class="lm">Vienna</div><div class="ls">Highest annualised return</div></td>
+                <td><span class="pv" style="color:#059669">5.2% yield</span></td>
+                <td style="font-size:8px;color:var(--t3)">Rent €3,794/mo</td>
+                <td><span class="tag tgr">★ Rental Alpha</span></td>
+                <td><div class="cw"><div class="cbar"><div class="cf cg" style="width:100%"></div></div><div class="cp2">100%</div></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>

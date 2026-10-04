@@ -1,0 +1,27 @@
+{{> head}}
+<!-- SIDEBAR -->
+{{> aside}}
+
+<!-- MAIN -->
+<main class="main">
+  {{> topbar}}
+
+  <div class="scr">
+    <!-- KPI -->
+    {{> kpi}}
+
+    <!-- ROW 1: charts -->
+    {{> charts-row}}
+
+    <!-- ROW 2 -->
+    <div class="r2">
+      {{> signals-table}}
+      {{> metrics-row}}
+    </div><!-- /r2 -->
+  </div><!-- /scr -->
+</main>
+
+{{> dashboard-scripts}}
+{{> footer}}
+
+//act4

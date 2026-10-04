@@ -1,0 +1,6 @@
+  <div class="topbar">
+    <div class="ts"><div class="tsv">{{totalOrders}}</div><div class="tsl">Total Orders</div></div>
+    <div class="ts"><div class="tsv">{{valueLeader}}</div><div class="tsl">Value Leader</div></div>
+    <div class="ts"><div class="tsv">{{peakYield}}</div><div class="tsl">Peak Yield</div></div>
+    <div class="ts"><div class="tsv">{{blenderYield}}</div><div class="tsl">Blended Yield</div></div>
+  </div>

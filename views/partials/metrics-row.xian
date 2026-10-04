@@ -1,0 +1,32 @@
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px"><span class="ct">Price/m² — Size &amp; Bedroom Split</span></div>
+        <div class="cs">Relative valuation density by profile</div>
+        <div class="mr"><div class="ml">Large homes</div><div class="mb"><div class="mf" style="width:95%;background:#2563eb"></div></div><div class="mv">€5,689</div></div>
+        <div class="mr"><div class="ml">Small homes</div><div class="mb"><div class="mf" style="width:80%;background:#7c3aed"></div></div><div class="mv">€4,785</div></div>
+        <div class="mr"><div class="ml">3+ bedrooms</div><div class="mb"><div class="mf" style="width:77%;background:#7c3aed"></div></div><div class="mv">€4,646</div></div>
+        <div class="mr"><div class="ml">0–2 bedrooms</div><div class="mb"><div class="mf" style="width:91%;background:#2563eb"></div></div><div class="mv">€5,474</div></div>
+        <div class="vb2">
+          <div class="vl">Market Velocity</div>
+          <div class="vr"><div class="vn">Fastest</div><div class="vbar" style="background:linear-gradient(90deg,#059669,#34d399)"></div><div class="vv" style="color:#059669">170.1d</div></div>
+          <div class="vr"><div class="vn">Slowest</div><div class="vbar" style="background:linear-gradient(90deg,#dc2626,#f87171)"></div><div class="vv" style="color:#dc2626">183.4d</div></div>
+          <div class="cp3">
+            <div><div class="cl">Fastest City</div><div class="cn" style="color:#059669">Vienna</div></div>
+            <div style="text-align:right"><div class="cl">Slowest City</div><div class="cn" style="color:#dc2626">Amsterdam</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rental vs Sale -->
+      <div class="card">
+        <div class="ch" style="margin-bottom:2px"><span class="ct">Rental vs Sale Market</span></div>
+        <div class="cs">Yield, rent &amp; best city performance</div>
+        <div class="cw2" style="height:125px"><canvas id="comboChart" role="img" aria-label="Rental vs sale market combo chart"></canvas></div>
+        <div class="leg" style="margin-top:5px">
+          <div class="li"><div class="ld" style="background:rgba(37,99,235,.4)"></div>Rent €/mo</div>
+          <div class="li"><div class="ld" style="background:#059669"></div>Yield %</div>
+        </div>
+        <div class="bybox">
+          <div><div class="byl">Best Yield City</div><div class="byc">Vienna</div><div class="bys">€3,794/mo rent · €875.5K sale</div></div>
+          <div class="byy">5.2%</div>
+        </div>
+      </div>
