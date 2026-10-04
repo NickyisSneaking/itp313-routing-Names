@@ -131,7 +131,7 @@ app.listen(300, () => console.log("Server running on port 3000"));
 sequelize
   .authenticate()
   .then(() => sequelize.sync())
-  .then(() => sequelize.sync({force: true}))
+  .then(() => sequelize.sync({alter: true}))
   .catch((err) => console.error(" DB error:", err))
 
 export default app;
