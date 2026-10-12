@@ -42,4 +42,9 @@ export const Club = sequelize.define("club", {
 export const insertClub = (data) => Club.create(data);
 export const selectAllClubs = () => Club.findAll();
 export const selectClubById = (id) => Club.findByPk(id);
+export const updateClub = async (id, data) => {
+  const club = await Club.findByPk(id);
+  if (!club) return null;
+  return club.update(data);
+};
 export { sequelize };

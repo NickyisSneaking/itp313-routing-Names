@@ -1,0 +1,8 @@
+<form method="post" action="/clubs/update/{{data.id}}">
+  <input type="text" name="name" placeholder="name" value="{{data.name}}">
+  <input type="text" name="school" placeholder="school" value="{{data.school}}">
+  <input type="text" name="president" placeholder="president" value="{{data.president}}">
+  <input type="text" name="memberCount" placeholder="memberCount" value="{{data.memberCount}}">
+  <input type="text" name="room" placeholder="room" value="{{data.room}}">
+  <input type="submit">
+</form>

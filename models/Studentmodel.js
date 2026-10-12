@@ -38,4 +38,9 @@ export const Studentmodel = sequelize.define("studentmodel", {
   school: { type: DataTypes.STRING, allowNull: false },
   role: { type: DataTypes.STRING, allowNull: false },
 });
+
+export const insertStudent = (data) => Studentmodel.create(data);
+export const selectAllStudents =() => Studentmodel.findAll();
+export const selectStudentById = (id) => Studentmodel.findByPk(id);
+
 export { sequelize };

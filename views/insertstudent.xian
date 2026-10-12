@@ -1,0 +1,10 @@
+<h2>Add new student</h2>
+<form method="post" action="/students">
+  <input type="text" name="name" placeholder="name"><br>
+  <input type="text" name="age" placeholder="age"><br>
+  <input type="text" name="club" placeholder="club"><br>
+  <input type="text" name="school" placeholder="school"><br>
+  <input type="text" name="role" placeholder="role"><br>
+  <input type="submit">
+</form>
+<a href="/students/list">Back to list</a>

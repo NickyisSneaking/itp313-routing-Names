@@ -44,6 +44,7 @@ import clubRoutes from "./routes/clubs.js";
 import schoolRoutes from "./routes/schools.js";
 import teacherRoutes from "./routes/teachers.js";
 import courseRoutes from "./routes/courses.js";
+import { studentcontroller } from "./controllers/studentcontroller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -1,0 +1,32 @@
+<h2 style="text-align:center">CRUD OPERATION</h2>
+<p style="text-align:center"><a href="/students/new">add new</a></p>
+
+<table border="1" cellpadding="6" style="margin:auto">
+  <tr>
+    <th>Name</th><th>Age</th><th>Club</th><th>School</th><th>Role</th><th>action</th>
+  </tr>
+  {{#each data}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{age}}</td>
+    <td>{{club}}</td>
+    <td>{{school}}</td>
+    <td>{{role}}</td>
+    <td>
+      <a href="/students/edit/{{id}}">edit</a> |
+      <a href="#" class="del" data-id="{{id}}">delete</a>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<script>
+document.querySelectorAll(".del").forEach(function (a) {
+  a.addEventListener("click", async function (e) {
+    e.preventDefault();
+    if (!confirm("Delete this student?")) return;
+    await fetch("/students/" + a.dataset.id, { method: "DELETE" });
+    location.reload();
+  });
+});
+</script>

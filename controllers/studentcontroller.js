@@ -22,43 +22,64 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-import { Studentmodel, sequelize } from "../models/Studentmodel.js";
-await sequelize.sync();
-const studentcontroller ={
-  index: async (req, res) => {
-    res.send("Index Page");
+import { Studentmodel, insertStudent, selectAllStudents, selectStudentById, sequelize } from "../models/Studentmodel.js";
+import { view } from "../middleware/view.js";
+
+const wantsHtml = (req) => (req.headers.accept || "").includes("text/html");
+
+const done = (req, res, message, payload) => {
+  if (wantsHtml(req)) return res.send(view("message", { message, back: "/students/list" }));
+  res.json(payload);
+};
+
+const studentcontroller = {
+  insert: async (req, res) => {
+    try {
+      const student = await insertStudent(req.body);
+      if (wantsHtml(req)) return done(req, res, "Student added.");
+      res.status(201).json(student);
+    } catch (e) {
+      res.status(400).json({ error: e.message });
+    }
   },
-};
 
-export const getAll = async (req, res) => {
-  res.json(await Studentmodel.findAll());
-};
+  get: async (req, res) => {
+    res.json(await selectAllStudents());
+  },
 
-export const getOne = async (req, res) => {
-  const s = await Studentmodel.findByPk(req.params.id);
-  if (!s) return res.status(404).json({ error: "Not found" });
-  res.json(s);
-};
+  show: async (req, res) => {
+    const s = await selectStudentById(req.params.id);
+    if (!s) return res.status(404).json({ error: "Not found" });
+    res.json(s);
+  },
 
-export const create = async (req, res) => {
-  try {
-    res.status(201).json(await Studentmodel.create(req.body));
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+  update: async (req, res) => {
+    const { id } = req.params;
+    const { name, age, club, school, role } = req.body;
+    await Studentmodel.update({ name, age, club, school, role }, { where: { id } });
+    done(req, res, "Data updated successfully.", { message: "Data updated successfully" });
+  },
 
-export const update = async (req, res) => {
-  const s = await Studentmodel.findByPk(req.params.id);
-  if (!s) return res.status(404).json({ error: "Not found" });
-  res.json(await s.update(req.body));
-};
+  delete: async (req, res) => {
+    const { id } = req.params;
+    await Studentmodel.destroy({ where: { id } });
+    done(req, res, "Data deleted successfully.", { message: "Data deleted successfully" });
+  },
 
-export const remove = async (req, res) => {
-  const s = await Studentmodel.findByPk(req.params.id);
-  if (!s) return res.status(404).json({ error: "Not found" });
-  await s.destroy();
-  res.status(204).end();
+  list: async (req, res) => {
+    const data = await selectAllStudents();
+    res.send(view("students", { data }));
+  },
+
+  create: (req, res) => {
+    res.send(view("insertstudent"));
+  },
+
+  edit: async (req, res) => {
+    const data = await selectStudentById(req.params.id);
+    if (!data) return res.status(404).json({ error: "Not found" });
+    res.send(view("editstudent", { data }));
+  },
 };
 
 export { studentcontroller };

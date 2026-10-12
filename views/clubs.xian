@@ -1,0 +1,33 @@
+<h2 style="text-align:center">CRUD OPERATION</h2>
+<p style="text-align:center"><a href="/clubs/new">add new</a></p>
+
+<table border="1" cellpadding="6" style="margin:auto">
+  <tr>
+    <th>Name</th><th>School</th><th>President</th>
+    <th>Members</th><th>Room</th><th>action</th>
+  </tr>
+  {{#each data}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{school}}</td>
+    <td>{{president}}</td>
+    <td>{{memberCount}}</td>
+    <td>{{room}}</td>
+    <td>
+      <a href="/clubs/edit/{{id}}">edit</a> |
+      <a href="#" class="del" data-id"{{id}}">delete</a>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<script>
+document.querySelectorAll(".del").forEach(function (a) {
+  a.addEventListener("click", async function (e) {
+    e.preventDefault();
+    if (!confirm("Delete this club?")) return;
+    await fetch("/clubs/" + a.dataset.id, { method: "DELETE" });
+    location.reload();
+  });
+});
+</script>

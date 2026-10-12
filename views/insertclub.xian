@@ -1,0 +1,8 @@
+<form method="post" action="/clubs">
+    <input type="text" name="name" placeholder="club name">
+    <input type="text" name="school" placeholder="school">
+    <input type="text" name="president" placeholder="president">
+    <input type="text" name="memberCount" placeholder="memberCount">
+    <input type="text" name="room" placeholder="room">
+    <input type="submit">
+</form>
