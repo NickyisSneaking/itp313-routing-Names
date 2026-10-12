@@ -60,14 +60,16 @@ The same routes exist for `/students`, `/schools`, `/courses` and `/teachers`.
 4. Start the server: `npm run xian`
 5. Open `http://localhost:3000/clubs/list` or test the routes in Postman.
 
-```bash
-npm install
-node index.js
-
-
-
 ## Screenshots
 <img width="1366" height="720" alt="1001707937" src="https://github.com/user-attachments/assets/eee2c545-2fdc-4972-b466-27bf44eed66b" />
 <img width="1366" height="720" alt="1001707939" src="https://github.com/user-attachments/assets/25f07cb4-996f-479c-9d27-35bbe7ac95b3" />
 <img width="1366" height="720" alt="1001707933" src="https://github.com/user-attachments/assets/b7c56e0e-c9d0-431d-916c-25b13d511177" />
 <img width="1366" height="720" alt="1001707932" src="https://github.com/user-attachments/assets/ec9b0eb0-9d80-42c1-8474-c10284b8ecfd" />
+
+
+
+```bash
+npm install
+node index.js
+
+
